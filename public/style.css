@@ -1,3 +1,32 @@
-.test {
-    text-align: center;
+
+.main {
+    overflow: hidden;
+    background-color: #D3DEDC;
+}
+
+
+.box {
+    height: 30rem;
+    width: 40rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 2rem;
+    margin: auto
+}
+
+.temp {
+    font-size: 10ch;
+    font-weight: bolder;
+}
+
+.desc {
+    display: inline-block;
+    font-weight: bolder;
+    font-size: 2ch;
+}
+
+.img {
+    width: 1.5rem;
+    height: 1.5rem;
+    display: inline-block;
 }

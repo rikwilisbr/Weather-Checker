@@ -1,31 +1,31 @@
 import React, { useState } from 'react'
 import Search from './Search'
+import Box from './Box'
 
 
 function App() {
 
-    const [city, setCity] = useState('')
+    const [dimensions, setDimensions] = React.useState({ 
+            height: window.innerHeight,
+            width: window.innerWidth
+          })
 
-    const [temp, setTemp] = useState("")
-
-    function getCity(event) {
-        setCity(event.target.value)
-    }
-    
-    function getData(){
-
-        const url = 'https://api.openweathermap.org/data/2.5/weather?q='+city+'&appid=b5ad28dedf1989aba8f4eb9f41591455&units=metric&lang=pt_br'
-
-        fetch(url).then( response => response.json()).then( data => {
-            setTemp(data.main.temp + '°C')
-        })} 
+    React.useEffect(() => {
+            function handleResize() {
+              setDimensions({
+                height: window.innerHeight,
+                width: window.innerWidth
+              })}
+              window.addEventListener('resize', handleResize)       
+            })
     
   return (
-    <div className='test'>
-        <h1>Weather Checker</h1>
-        <Search change={getCity} click={getData} value={city} />
-        <h1>{temp}</h1>
+    <div className='main' style={{width: dimensions.width, height: dimensions.height}}>
+        <h1 className='text-center'>Weather Checker</h1>
+        <Box />
     </div>
+    
+
   )
 }
 
