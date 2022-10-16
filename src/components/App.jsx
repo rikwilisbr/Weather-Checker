@@ -21,9 +21,8 @@ function App() {
   }
   
   function getData(){
-
-      const url = 'https://api.openweathermap.org/data/2.5/weather?q='+city+'&appid=b5ad28dedf1989aba8f4eb9f41591455&units=metric&lang=pt_br'
-
+      const url = 'https://api.openweathermap.org/data/2.5/weather?q='+city+'&appid='+ process.env.REACT_APP_KEY +'&units=metric&lang=pt_br'
+      console.log(url)
       fetch(url).then( (response) => response.json()).then( (data) => {
           setTemp(Math.round(data.main.temp) + '°C')
           setDesc(data.weather[0].description)
