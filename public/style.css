@@ -1,7 +1,13 @@
+.mainmain {
+    overflow: hidden;
+}
+
 
 .main {
     overflow: hidden;
     background-color: #182747;
+    padding: 0% 25%;
+    
 }
 
 header {
@@ -15,8 +21,7 @@ header {
 
 .box {
     height: 23rem;
-    width: 90%;
-    background-image: url('https://images.unsplash.com/flagged/photo-1553475873-55d8c03e9f5f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1025&q=80');
+    width: 100%;
     background-color: white;
     border-radius: 0.5rem;
     margin: auto;
@@ -27,12 +32,64 @@ header {
 
 .section2 {
     height: 15rem;
-    width: 90%;
+    width: 100%;
     background-color: #D8D8D8;
     border-radius: 0.5rem;
     padding: 2rem;
     margin: auto;
     margin-top: 1rem;
+}
+
+.search {
+    display: flex;
+    justify-content: center;
+    margin-top: -30px;
+}
+
+.input {
+    background-color: transparent;
+    color: white;
+    border: 0;
+    outline: 0;
+    width: 10rem;
+}
+
+.input::placeholder {
+    color: #D8D8D8;
+    opacity: 0.5;
+}
+
+.search-div {
+    color: white;
+    border: 0;
+    outline: 0;
+    border-bottom: 2px solid white;
+}
+
+.search-icon {
+    background: transparent;
+    color: white;
+    border: none;
+}
+
+.social-icon {
+    text-decoration: none;
+    color: white;
+    display: flex;
+    justify-content: end;
+    margin-top: -30px;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.social-icon2 {
+    text-decoration: none;
+    color: white;
+    display: flex;
+    justify-content: end;
+    margin-top: -23px;
+    margin-right: 60px;
+    cursor: pointer;
 }
 
 .temp {
@@ -64,10 +121,6 @@ header {
     margin: auto
 }
 
-.search {
-    margin: 20px !important;
-}
-
 .hour {
     background: rgba(255, 255, 255, 0.103);
     border-radius: 0.5rem;
@@ -81,4 +134,16 @@ header {
 
 .cityName {
     padding-top: 2rem;
+}
+
+.reload {
+    border: none;
+    background-color: transparent;
+    color: white;
+    width: 5%;
+    transition: color 250ms ease-out
+}
+
+.reload:hover {
+    color: rgb(219, 219, 219)
 }

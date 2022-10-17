@@ -2,19 +2,23 @@ import React, {useState} from 'react'
 import Box from './Box'
 import Search from './Search'
 import { Typography } from '@mui/material'
+import GitHubIcon from '@mui/icons-material/GitHub';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 
 function App() {
 
-  const [city, setCity] = useState('')
+  const [city, setCity] = useState('New York')
 
   const [temp, setTemp] = useState("")
 
   const [desc, setDesc] = useState("")
 
-  const [image, setImage] = useState("")
+  const [icon, setIcon] = useState("")
 
   const [cityName, setCityName] = useState("")
+
+  const [errorMessage, setErrorMessage] = useState(Boolean)
 
   function getCity(event) {
       setCity(event.target.value)
@@ -22,15 +26,23 @@ function App() {
   
   function getData(){
       const url = 'https://api.openweathermap.org/data/2.5/weather?q='+city+'&appid='+ process.env.REACT_APP_KEY +'&units=metric&lang=pt_br'
-      console.log(url)
       fetch(url).then( (response) => response.json()).then( (data) => {
+        if (data.cod == 200){
           setTemp(Math.round(data.main.temp) + '°C')
           setDesc(data.weather[0].description)
-          setImage('http://openweathermap.org/img/wn/'+data.weather[0].icon+'@2x.png')
+          setIcon('http://openweathermap.org/img/wn/'+data.weather[0].icon+'@2x.png')
           setCityName(data.name)
 
           document.querySelector('.icon').classList.remove('visually-hidden')
+          setErrorMessage(false)
+        } else {
+          setErrorMessage(true)
+          document.querySelector('.icon').classList.add('visually-hidden')
+        }
+
       })}
+
+  window.onload = getData()
 
     const [dimensions, setDimensions] = React.useState({ 
             height: window.innerHeight,
@@ -47,24 +59,33 @@ function App() {
             })
 
   return (
-
-    <div className='main' style={{width: dimensions.width, height: dimensions.height}}>    
+    <div className='mainmain'>
         <header>
-          <Typography className='' variant="h5" component="h2">Weather Checker</Typography>
-        </header>
-        <div className='container'>
-          <div className='text-center'>
-            <Search change={getCity} click={getData} value={city} />
-          </div>
-          <Box cityName={cityName} image={image} temp={temp} desc={desc} />
-          <div className='row visually-hidden'>
-            <div className='col col-12'>
-              <div className='section2'></div>
+          <Typography className='' style={{cursor: 'pointer'}} variant="h5" component="h2">Weather Checker</Typography>
+            <div>
+              <Search change={getCity} click={getData} value={city} />
             </div>
-          </div>
+            <div>
+              <a href='https://github.com/rikwilisbr/Weather-Checker' target='_blank' className='social-icon'>
+                <GitHubIcon />
+              </a>
+              <a href="https://www.linkedin.com/in/henrique-william-495991219/" target="_blank" className='social-icon2'>
+                <LinkedInIcon />
+              </a>
+            </div>
+        </header>
+        <div className='main' style={{width: dimensions.width, height: dimensions.height}}>    
+          <div className='container'>
+            <Box refresh={() => document.location.reload()} cityName={errorMessage ? 'Not found :(' : cityName} icon={errorMessage ? '' : icon} temp={errorMessage ? '' : temp} desc={errorMessage ? '' : desc} />
+            <div className=''>
+              <div className='col col-12'>
+                <div className='section2'></div>
+              </div>
+            </div>
 
-          </div>
+            </div>
       
+    </div>
     </div>
     
 
