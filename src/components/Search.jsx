@@ -1,4 +1,5 @@
 import React from 'react'
+import SearchIcon from '@mui/icons-material/Search';
 
 function Search(prop){
 
@@ -7,12 +8,12 @@ function Search(prop){
     }
 
     return(
-        <div className='search'>
+        <div className='search container'>
             <form onSubmit={handleSubmit}>
             <label>
-            <div className='input-group'>
-            <input className='form-control input' placeholder='Type your city name:' type='text' onChange={prop.change} value={prop.value} autoFocus></input>
-            <button className='btn btn-secondary button' onClick={prop.click}>Search</button>
+            <div className='search-div'>
+            <input className='input' placeholder='Type your city name:' type='text' onChange={prop.change} value={prop.value} autoFocus></input>
+            <button onClick={prop.click} className='search-icon'><SearchIcon /></button>
             </div>
             </label>
             </form>
