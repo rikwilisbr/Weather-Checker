@@ -6,8 +6,6 @@
 .main {
     overflow: hidden;
     background-color: #182747;
-    padding: 0% 25%;
-    
 }
 
 header {
@@ -20,24 +18,21 @@ header {
 
 
 .box {
-    height: 23rem;
+    height: 30rem;
     width: 100%;
     background-color: white;
-    border-radius: 0.5rem;
     margin: auto;
     color: white;
-    margin-top: 3rem;
-    
+    background-size: cover;
 }
 
+
 .section2 {
-    height: 15rem;
+    height: 30rem;
     width: 100%;
-    background-color: #D8D8D8;
-    border-radius: 0.5rem;
+    background-color: black;
     padding: 2rem;
     margin: auto;
-    margin-top: 1rem;
 }
 
 .search {
@@ -63,7 +58,7 @@ header {
     color: white;
     border: 0;
     outline: 0;
-    border-bottom: 2px solid white;
+    border-bottom: 1px solid white;
 }
 
 .search-icon {
@@ -96,10 +91,21 @@ header {
     padding: 0.5rem;
 }
 
+.feelslike {
+    margin-top: -1rem !important;
+}
+
+.desc-child {
+    vertical-align: middle;
+    display: inline-block;
+    margin-top: 2rem;
+}
+
 .desc {
     display: inline-block;
     font-weight: bolder;
     font-size: 2ch;
+    margin-left: 1.5rem !important;
 }
 
 .img {
@@ -123,8 +129,8 @@ header {
 
 .hour {
     background: rgba(255, 255, 255, 0.103);
-    border-radius: 0.5rem;
     padding: 0.5rem;
+    width: 100%;
 }
 
 .hourText {
@@ -133,15 +139,15 @@ header {
 }
 
 .cityName {
-    padding-top: 2rem;
+    padding-top: 3rem;
 }
 
 .reload {
     border: none;
     background-color: transparent;
     color: white;
-    width: 5%;
-    transition: color 250ms ease-out
+    width: 100% !important;
+    transition: color 250ms ease-out,
 }
 
 .reload:hover {
