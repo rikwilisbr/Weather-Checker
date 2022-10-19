@@ -14,26 +14,29 @@ export default function Box(prop) {
     if( minutes < 10 ) {
         minutes = '0' + minutes   
     }
-    const currentHour = dayUp + ', ' + now.getHours() + ':' + minutes
+
+    var hours = now.getHours()
+    if (hours < 10){
+        hours = '0' + hours
+    }
+    const currentHour = dayUp + ', ' + hours + ':' + minutes
 
     const time = useRef(Boolean)
 
     useEffect( () => {
    
-        if (now.getHours() >= 6 && now.getHours() <= 18  ) {
+        if (now.getHours() >= 6 && now.getHours('19') <= 18  ) {
             time.current = true
         } else {
             time.current = false
         }
-
-        console.log(time ? 'day' : 'night')
         }
     )
 
   return (
-    <div style={time ? {backgroundImage: 'url("https://images.unsplash.com/photo-1514477917009-389c76a86b68?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1067&q=80")'} : {backgroundImage: 'url("https://images.unsplash.com/flagged/photo-1553475873-55d8c03e9f5f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1025&q=80")'}} className='box'>
+    <div style={time.current ? {backgroundImage: 'url("https://images.unsplash.com/photo-1514477917009-389c76a86b68?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1067&q=80")'} : {backgroundImage: 'url("https://preview.redd.it/868ncobig1m61.jpg?width=2000&format=pjpg&auto=webp&s=17789009789553c06f55071d59324d8fbb526e4a")'}} className='box'>
     <div className='container-fluid p-0 m-0'>
-    <div className='row text-center hour m-0' >
+    <div className='row text-center hour m-0' style={time.current ? {background: 'rgba(255, 255, 255, 0.103)'} : {background: 'rgba(0, 0, 0, 0.103)'}} >
         <Typography className='hourText' variant="h5" component="h2">{currentHour}</Typography>
         <button className='reload' onClick={prop.refresh}><ReplayIcon /> </button>
     </div>
