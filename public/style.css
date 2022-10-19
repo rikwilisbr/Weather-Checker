@@ -3,9 +3,9 @@
 }
 
 
-.main {
+.section1 {
     overflow: hidden;
-    background-color: #182747;
+    background-color: black;
 }
 
 header {
@@ -18,21 +18,12 @@ header {
 
 
 .box {
-    height: 30rem;
+    height: 25rem;
     width: 100%;
     background-color: white;
     margin: auto;
     color: white;
     background-size: cover;
-}
-
-
-.section2 {
-    height: 30rem;
-    width: 100%;
-    background-color: black;
-    padding: 2rem;
-    margin: auto;
 }
 
 .search {
@@ -98,7 +89,7 @@ header {
 .desc-child {
     vertical-align: middle;
     display: inline-block;
-    margin-top: 2rem;
+    margin-top: 1rem;
 }
 
 .desc {
@@ -128,7 +119,6 @@ header {
 }
 
 .hour {
-    background: rgba(255, 255, 255, 0.103);
     padding: 0.5rem;
     width: 100%;
 }
@@ -153,3 +143,34 @@ header {
 .reload:hover {
     color: rgb(219, 219, 219)
 }
+
+
+.section2 {
+    height: 30rem;
+    width: 100%;
+    background-color: black;
+    padding: 2rem;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.forecast {
+    border-right: solid 1px white;
+    margin-right: 10px;
+    height: 16rem;
+    width: 45% !important;
+    color: white;
+    
+}
+
+.forecast2 {
+    height: 16rem;
+    width: 45% !important;
+    color: white;
+}
+
+th, td {
+    color: white;
+}
+
