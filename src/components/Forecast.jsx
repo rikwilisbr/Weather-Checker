@@ -3,11 +3,11 @@ import { Typography } from '@mui/material'
 
 function Forecast(prop) {
   return (
-    <div className='container-fluid p-0'>
+    <div className='forecast-container container-fluid p-0'>
         <div className='row d-flex justify-content-center'>
           <div className='forecast'>
-            <Typography variant='h5'>Next Hourly Forecast</Typography>
-            <div>
+            <Typography className='forecast-title' variant='h5' sx={{fontWeight: 'bold'}}>Next Hourly Forecast</Typography>
+            <div className='forecast-table'>
                 <table className="table table-borderless">
                     <thead>
                         <tr>

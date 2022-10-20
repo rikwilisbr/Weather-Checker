@@ -21,27 +21,31 @@ function App() {
 
   const [feelsLike, setFeelsLike] = useState("")
 
-  const [nextHour, setNextHour] = useState('')
-  const [nextHour2, setNextHour2] = useState('')
-  const [nextHour3, setNextHour3] = useState('')
+  const [nextHour, setNextHour] = useState({
+    nextHour: '',
+    nextHour2: '',
+    nextHour3: '',
+  })
 
-  const [minMax, setMinMax] = useState('')
-  const [minMax2, setMinMax2] = useState('')
-  const [minMax3, setMinMax3] = useState('')
+  const [minMax, setMinMax] = useState({
+    minMax: '',
+    minMax2: '',
+    minMax3: '',
+  })
 
-  const [humidity, setHumidity] = useState('')
-  const [humidity2, setHumidity2] = useState('')
-  const [humidity3, setHumidity3] = useState('')
+  const [humidity, setHumidity] = useState({
+    humidity: '',
+    humidity2: '',
+    humidity3: '',
+  })
 
-
-  const [icon_, setIcon_] = useState('')
-  const [icon_2, setIcon_2] = useState('')
-  const [icon_3, setIcon_3] = useState('')
+  const [icon_, setIcon_] = useState({
+    icon_:'',
+    icon_2:'',
+    icon_3:''
+  })
 
   const [errorMessage, setErrorMessage] = useState(Boolean)
-
-
-
 
   function getCity(event) {
       setCity(event.target.value)
@@ -70,36 +74,39 @@ function App() {
         const url2 = 'https://api.openweathermap.org/data/2.5/forecast?q='+city+'&appid='+ process.env.REACT_APP_KEY +'&units=metric&lang=pt_br'
         fetch(url2).then((reponse)=> reponse.json()).then((data) => {
           if (data.cod == 200 ){
-            const prevHour = data.list[0].dt_txt.slice(10)
-            setNextHour(prevHour.substring(0,6))
 
-            const prevHour2 = data.list[1].dt_txt.slice(10)
-            setNextHour2(prevHour2.substring(0,6))
+            setNextHour(()=>{
+              return {
+                nextHour: data.list[0].dt_txt.slice(10).substring(0,6),
+                nextHour2: data.list[1].dt_txt.slice(10).substring(0,6),
+                nextHour3: data.list[2].dt_txt.slice(10).substring(0,6)
+              }
+            })
 
-            const prevHour3 = data.list[2].dt_txt.slice(10)
-            setNextHour3(prevHour3.substring(0,6))
+            setMinMax(()=>{
+              return {
+                minMax: Math.round(data.list[0].main.temp_min) + '°C/' + Math.round(data.list[0].main.temp_max) + '°C',
+                minMax2: Math.round(data.list[1].main.temp_min) + '°C/' + Math.round(data.list[1].main.temp_max) + '°C',
+                minMax3:  Math.round(data.list[2].main.temp_min) + '°C/' + Math.round(data.list[2].main.temp_max) + '°C'
+              }
+            })
 
-            const minmax_ = Math.round(data.list[0].main.temp_min) + '°C/' + Math.round(data.list[0].main.temp_max) + '°C'
-            setMinMax(minmax_) 
+            setHumidity(()=>{
+              return{
+                humidity:data.list[0].main.humidity + '%',
+                humidity2:data.list[1].main.humidity + '%',
+                humidity3:data.list[2].main.humidity + '%'
 
-            const minmax2_ = Math.round(data.list[1].main.temp_min) + '°C/' + Math.round(data.list[1].main.temp_max ) + '°C'
-            setMinMax2(minmax2_) 
+              }
+            })
 
-            const minmax3_ = Math.round(data.list[2].main.temp_min) + '°C/' + Math.round(data.list[2].main.temp_max ) + '°C'
-            setMinMax3(minmax3_)
-
-            const humidity_ = data.list[0].main.humidity + '%'
-            setHumidity(humidity_)
-
-            const humidity2_ = data.list[1].main.humidity + '%'
-            setHumidity2(humidity2_)
-
-            const humidity3_ = data.list[2].main.humidity + '%'
-            setHumidity3(humidity3_)
-
-            setIcon_('http://openweathermap.org/img/wn/'+data.list[0].weather[0].icon+'@2x.png')
-            setIcon_2('http://openweathermap.org/img/wn/'+data.list[1].weather[0].icon+'@2x.png')
-            setIcon_3('http://openweathermap.org/img/wn/'+data.list[2].weather[0].icon+'@2x.png')
+            setIcon_(()=>{
+              return {
+                icon_:'http://openweathermap.org/img/wn/'+data.list[0].weather[0].icon+'@2x.png',
+                icon_2:'http://openweathermap.org/img/wn/'+data.list[1].weather[0].icon+'@2x.png',
+                icon_3:'http://openweathermap.org/img/wn/'+data.list[2].weather[0].icon+'@2x.png'
+              }
+            })
 
           } else {
             console.log('error')
@@ -135,36 +142,39 @@ function App() {
         const url2 = 'https://api.openweathermap.org/data/2.5/forecast?lat='+lat+'&lon='+lon+'&units=metric&lang=pt_br&appid='+process.env.REACT_APP_KEY
         fetch(url2).then((reponse)=> reponse.json()).then((data) => {
           if (data.cod == 200 ){
-            const prevHour = data.list[0].dt_txt.slice(10)
-            setNextHour(prevHour.substring(0,6))
 
-            const prevHour2 = data.list[1].dt_txt.slice(10)
-            setNextHour2(prevHour2.substring(0,6))
+            setNextHour(()=>{
+              return {
+                nextHour: data.list[0].dt_txt.slice(10).substring(0,6),
+                nextHour2: data.list[1].dt_txt.slice(10).substring(0,6),
+                nextHour3: data.list[2].dt_txt.slice(10).substring(0,6)
+              }
+            })
 
-            const prevHour3 = data.list[2].dt_txt.slice(10)
-            setNextHour3(prevHour3.substring(0,6))
+            setMinMax(()=>{
+              return {
+                minMax: Math.round(data.list[0].main.temp_min) + '°C/' + Math.round(data.list[0].main.temp_max) + '°C',
+                minMax2: Math.round(data.list[1].main.temp_min) + '°C/' + Math.round(data.list[1].main.temp_max) + '°C',
+                minMax3:  Math.round(data.list[2].main.temp_min) + '°C/' + Math.round(data.list[2].main.temp_max) + '°C'
+              }
+            })
 
-            const minmax_ = Math.round(data.list[0].main.temp_min) + '°C/' + Math.round(data.list[0].main.temp_max) + '°C'
-            setMinMax(minmax_) 
+            setHumidity(()=>{
+              return{
+                humidity:data.list[0].main.humidity + '%',
+                humidity2:data.list[1].main.humidity + '%',
+                humidity3:data.list[2].main.humidity + '%'
 
-            const minmax2_ = Math.round(data.list[1].main.temp_min) + '°C/' + Math.round(data.list[1].main.temp_max ) + '°C'
-            setMinMax2(minmax2_) 
+              }
+            })
 
-            const minmax3_ = Math.round(data.list[2].main.temp_min) + '°C/' + Math.round(data.list[2].main.temp_max ) + '°C'
-            setMinMax3(minmax3_)
-
-            const humidity_ = data.list[0].main.humidity + '%'
-            setHumidity(humidity_)
-
-            const humidity2_ = data.list[1].main.humidity + '%'
-            setHumidity2(humidity2_)
-
-            const humidity3_ = data.list[2].main.humidity + '%'
-            setHumidity3(humidity3_)
-
-            setIcon_('http://openweathermap.org/img/wn/'+data.list[0].weather[0].icon+'@2x.png')
-            setIcon_2('http://openweathermap.org/img/wn/'+data.list[1].weather[0].icon+'@2x.png')
-            setIcon_3('http://openweathermap.org/img/wn/'+data.list[2].weather[0].icon+'@2x.png')
+            setIcon_(()=>{
+              return {
+                icon_:'http://openweathermap.org/img/wn/'+data.list[0].weather[0].icon+'@2x.png',
+                icon_2:'http://openweathermap.org/img/wn/'+data.list[1].weather[0].icon+'@2x.png',
+                icon_3:'http://openweathermap.org/img/wn/'+data.list[2].weather[0].icon+'@2x.png'
+              }
+            })
 
           } else {
             console.log('error')
@@ -237,23 +247,28 @@ function App() {
           </section>
           <section className='section2'>
             <Forecast
-              hour1={ errorMessage ? '-' : nextHour}
-              hour2={ errorMessage ? '-' : nextHour2}
-              hour3={ errorMessage ? '-' : nextHour3}
+              hour1={ errorMessage ? '-' : nextHour.nextHour}
+              hour2={ errorMessage ? '-' : nextHour.nextHour2}
+              hour3={ errorMessage ? '-' : nextHour.nextHour3}
 
-              minmax={ errorMessage ? '-' : minMax}
-              minmax2={ errorMessage ? '-' : minMax2}
-              minmax3={ errorMessage ? '-' : minMax3}
+              minmax={ errorMessage ? '-' : minMax.minMax}
+              minmax2={ errorMessage ? '-' : minMax.minMax2}
+              minmax3={ errorMessage ? '-' : minMax.minMax3}
 
-              humidity ={errorMessage ? '-' : humidity}
-              humidity2 ={errorMessage ? '-' : humidity2}
-              humidity3 ={errorMessage ? '-' : humidity3}
+              humidity ={errorMessage ? '-' : humidity.humidity}
+              humidity2 ={errorMessage ? '-' : humidity.humidity2}
+              humidity3 ={errorMessage ? '-' : humidity.humidity3}
 
-              icon= {errorMessage ? '-' : icon_}
-              icon2= {errorMessage ? '-' : icon_2}
-              icon3= {errorMessage ? '-' : icon_3}
+              icon= {errorMessage ? '-' : icon_.icon_}
+              icon2= {errorMessage ? '-' : icon_.icon_2}
+              icon3= {errorMessage ? '-' : icon_.icon_3}
              />
           </section>
+          <footer className='text-center' >
+              <Typography variant='h7'>
+                © Developed by Henrique William
+              </Typography>
+          </footer>
         </div>  
     </div>
     
