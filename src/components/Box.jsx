@@ -34,9 +34,9 @@ export default function Box(prop) {
     )
 
   return (
-    <div style={time.current ? {backgroundImage: 'url("https://images.unsplash.com/photo-1514477917009-389c76a86b68?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1067&q=80")'} : {backgroundImage: 'url("https://preview.redd.it/868ncobig1m61.jpg?width=2000&format=pjpg&auto=webp&s=17789009789553c06f55071d59324d8fbb526e4a")'}} className='box'>
+    <div style={time.current ? {backgroundImage: 'url("https://images.unsplash.com/photo-1514477917009-389c76a86b68?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1067&q=80")'} : {backgroundImage: 'url("https://cdn.wallpapersafari.com/39/41/LtjY2a.jpg")'}} className='box'>
     <div className='container-fluid p-0 m-0'>
-    <div className='row text-center hour m-0' style={time.current ? {background: 'rgba(255, 255, 255, 0.103)'} : {background: 'rgba(0, 0, 0, 0.103)'}} >
+    <div className='row text-center hour m-0' style={{background: 'rgba(255, 255, 255, 0.103)'}} >
         <Typography className='hourText' variant="h5" component="h2">{currentHour}</Typography>
         <button className='reload' onClick={prop.refresh}><ReplayIcon /> </button>
     </div>
