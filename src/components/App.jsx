@@ -21,6 +21,8 @@ function App() {
 
   const [feelsLike, setFeelsLike] = useState("")
 
+
+
   const [nextHour, setNextHour] = useState({
     nextHour: '',
     nextHour2: '',
@@ -45,143 +47,149 @@ function App() {
     icon_3:''
   })
 
+  //forecast2
+  
+  const [nextHour2, setNextHour2] = useState({
+    nextHour: '',
+    nextHour2: '',
+    nextHour3: '',
+  })
+
+  const [minMax2, setMinMax2] = useState({
+    minMax: '',
+    minMax2: '',
+    minMax3: '',
+  })
+
+  const [humidity2, setHumidity2] = useState({
+    humidity: '',
+    humidity2: '',
+    humidity3: '',
+  })
+
+  const [icon2, setIcon2] = useState({
+    icon_:'',
+    icon_2:'',
+    icon_3:''
+  })
+
   const [errorMessage, setErrorMessage] = useState(Boolean)
 
   function getCity(event) {
       setCity(event.target.value)
   }
-  
-  function getData(){
-      const url = 'https://api.openweathermap.org/data/2.5/weather?q='+city+'&appid='+ process.env.REACT_APP_KEY +'&units=metric&lang=pt_br'
-      fetch(url).then( (response) => response.json()).then( (data) => {
-        if (data.cod === 200){
-          setTemp(Math.round(data.main.temp) + '°C')
-          setDesc(data.weather[0].description)
-          setIcon('http://openweathermap.org/img/wn/'+data.weather[0].icon+'@2x.png')
-          setCityName(data.name)
-          setFeelsLike('Feels Like ' + Math.round(data.main.feels_like)+'°C')
 
-          document.querySelector('.icon').classList.remove('visually-hidden')
-          setErrorMessage(false)
+  async function getForecast(path, path2) {
+    await fetch(path).then( (response) => response.json()).then( (data) => {
+      if (data.cod === 200){
+        setTemp(Math.round(data.main.temp) + '°C')
+        setDesc(data.weather[0].description)
+        setIcon('http://openweathermap.org/img/wn/'+data.weather[0].icon+'@2x.png')
+        setCityName(data.name)
+        setFeelsLike('Feels Like ' + Math.round(data.main.feels_like)+'°C')
+
+        document.querySelector('.icon').classList.remove('visually-hidden')
+        setErrorMessage(false)
+      } else {
+        setErrorMessage(true)
+        document.querySelector('.icon').classList.add('visually-hidden')
+      }
+      
+
+      })
+
+      await fetch(path2).then((reponse)=> reponse.json()).then((data) => {
+        if (data.cod === '200' ){
+
+          setNextHour(()=>{
+            return {
+              nextHour: data.list[0].dt_txt.slice(10).substring(0,6),
+              nextHour2: data.list[1].dt_txt.slice(10).substring(0,6),
+              nextHour3: data.list[2].dt_txt.slice(10).substring(0,6)
+            }
+          })
+
+          setMinMax(()=>{
+            return {
+              minMax: Math.round(data.list[0].main.temp_min) + '°C/' + Math.round(data.list[0].main.temp_max) + '°C',
+              minMax2: Math.round(data.list[1].main.temp_min) + '°C/' + Math.round(data.list[1].main.temp_max) + '°C',
+              minMax3:  Math.round(data.list[2].main.temp_min) + '°C/' + Math.round(data.list[2].main.temp_max) + '°C'
+            }
+          })
+
+          setHumidity(()=>{
+            return{
+              humidity:data.list[0].main.humidity + '%',
+              humidity2:data.list[1].main.humidity + '%',
+              humidity3:data.list[2].main.humidity + '%'
+
+            }
+          })
+
+          setIcon_(()=>{
+            return {
+              icon_:'http://openweathermap.org/img/wn/'+data.list[3].weather[0].icon+'@2x.png',
+              icon_2:'http://openweathermap.org/img/wn/'+data.list[4].weather[0].icon+'@2x.png',
+              icon_3:'http://openweathermap.org/img/wn/'+data.list[5].weather[0].icon+'@2x.png'
+            }
+          })
+
+          //forecast2
+
+          
+          setNextHour2(()=>{
+            return {
+              nextHour: data.list[3].dt_txt.slice(10).substring(0,6),
+              nextHour2: data.list[4].dt_txt.slice(10).substring(0,6),
+              nextHour3: data.list[5].dt_txt.slice(10).substring(0,6)
+            }
+          })
+
+          setMinMax2(()=>{
+            return {
+              minMax: Math.round(data.list[3].main.temp_min) + '°C/' + Math.round(data.list[0].main.temp_max) + '°C',
+              minMax2: Math.round(data.list[4].main.temp_min) + '°C/' + Math.round(data.list[1].main.temp_max) + '°C',
+              minMax3:  Math.round(data.list[5].main.temp_min) + '°C/' + Math.round(data.list[2].main.temp_max) + '°C'
+            }
+          })
+
+          setHumidity2(()=>{
+            return{
+              humidity:data.list[3].main.humidity + '%',
+              humidity2:data.list[4].main.humidity + '%',
+              humidity3:data.list[5].main.humidity + '%'
+
+            }
+          })
+
+          setIcon2(()=>{
+            return {
+              icon_:'http://openweathermap.org/img/wn/'+data.list[3].weather[0].icon+'@2x.png',
+              icon_2:'http://openweathermap.org/img/wn/'+data.list[4].weather[0].icon+'@2x.png',
+              icon_3:'http://openweathermap.org/img/wn/'+data.list[5].weather[0].icon+'@2x.png'
+            }
+          })
+
         } else {
-          setErrorMessage(true)
-          document.querySelector('.icon').classList.add('visually-hidden')
+          console.log('error')
         }
-        
+      })
+  }
 
-        })
-        
+      function getData(){
+        const url = 'https://api.openweathermap.org/data/2.5/weather?q='+city+'&appid='+ process.env.REACT_APP_KEY +'&units=metric&lang=pt_br'
         const url2 = 'https://api.openweathermap.org/data/2.5/forecast?q='+city+'&appid='+ process.env.REACT_APP_KEY +'&units=metric&lang=pt_br'
-        fetch(url2).then((reponse)=> reponse.json()).then((data) => {
-          if (data.cod == 200 ){
-
-            setNextHour(()=>{
-              return {
-                nextHour: data.list[0].dt_txt.slice(10).substring(0,6),
-                nextHour2: data.list[1].dt_txt.slice(10).substring(0,6),
-                nextHour3: data.list[2].dt_txt.slice(10).substring(0,6)
-              }
-            })
-
-            setMinMax(()=>{
-              return {
-                minMax: Math.round(data.list[0].main.temp_min) + '°C/' + Math.round(data.list[0].main.temp_max) + '°C',
-                minMax2: Math.round(data.list[1].main.temp_min) + '°C/' + Math.round(data.list[1].main.temp_max) + '°C',
-                minMax3:  Math.round(data.list[2].main.temp_min) + '°C/' + Math.round(data.list[2].main.temp_max) + '°C'
-              }
-            })
-
-            setHumidity(()=>{
-              return{
-                humidity:data.list[0].main.humidity + '%',
-                humidity2:data.list[1].main.humidity + '%',
-                humidity3:data.list[2].main.humidity + '%'
-
-              }
-            })
-
-            setIcon_(()=>{
-              return {
-                icon_:'http://openweathermap.org/img/wn/'+data.list[0].weather[0].icon+'@2x.png',
-                icon_2:'http://openweathermap.org/img/wn/'+data.list[1].weather[0].icon+'@2x.png',
-                icon_3:'http://openweathermap.org/img/wn/'+data.list[2].weather[0].icon+'@2x.png'
-              }
-            })
-
-          } else {
-            console.log('error')
-          }
-        })
+        getForecast(url, url2)
       }
 
-      
       function getCurrentData(pos){
-
         const lat = String(pos.coords.latitude)
         const lon = String(pos.coords.longitude)
 
         const url = 'https://api.openweathermap.org/data/2.5/weather?lat='+lat+'&lon='+lon+'&units=metric&lang=pt_br&appid='+process.env.REACT_APP_KEY
-        fetch(url).then( (response) => response.json()).then( (data) => {
-          if (data.cod === 200){
-            setTemp(Math.round(data.main.temp) + '°C')
-            setDesc(data.weather[0].description)
-            setIcon('http://openweathermap.org/img/wn/'+data.weather[0].icon+'@2x.png')
-            setCityName(data.name)
-            setFeelsLike('Feels Like ' + Math.round(data.main.feels_like)+'°C')
-  
-            document.querySelector('.icon').classList.remove('visually-hidden')
-            setErrorMessage(false)
-          } else {
-            setErrorMessage(true)
-            document.querySelector('.icon').classList.add('visually-hidden')
-          }
-          
-  
-        })
-        
         const url2 = 'https://api.openweathermap.org/data/2.5/forecast?lat='+lat+'&lon='+lon+'&units=metric&lang=pt_br&appid='+process.env.REACT_APP_KEY
-        fetch(url2).then((reponse)=> reponse.json()).then((data) => {
-          if (data.cod == 200 ){
+        getForecast(url, url2)
 
-            setNextHour(()=>{
-              return {
-                nextHour: data.list[0].dt_txt.slice(10).substring(0,6),
-                nextHour2: data.list[1].dt_txt.slice(10).substring(0,6),
-                nextHour3: data.list[2].dt_txt.slice(10).substring(0,6)
-              }
-            })
-
-            setMinMax(()=>{
-              return {
-                minMax: Math.round(data.list[0].main.temp_min) + '°C/' + Math.round(data.list[0].main.temp_max) + '°C',
-                minMax2: Math.round(data.list[1].main.temp_min) + '°C/' + Math.round(data.list[1].main.temp_max) + '°C',
-                minMax3:  Math.round(data.list[2].main.temp_min) + '°C/' + Math.round(data.list[2].main.temp_max) + '°C'
-              }
-            })
-
-            setHumidity(()=>{
-              return{
-                humidity:data.list[0].main.humidity + '%',
-                humidity2:data.list[1].main.humidity + '%',
-                humidity3:data.list[2].main.humidity + '%'
-
-              }
-            })
-
-            setIcon_(()=>{
-              return {
-                icon_:'http://openweathermap.org/img/wn/'+data.list[0].weather[0].icon+'@2x.png',
-                icon_2:'http://openweathermap.org/img/wn/'+data.list[1].weather[0].icon+'@2x.png',
-                icon_3:'http://openweathermap.org/img/wn/'+data.list[2].weather[0].icon+'@2x.png'
-              }
-            })
-
-          } else {
-            console.log('error')
-
-          }
-        }) 
-      
       }
 
       function initCoords() {
@@ -202,19 +210,6 @@ function App() {
       }
     }) 
 
-    // const [dimensions, setDimensions] = React.useState({ 
-    //         height: window.innerHeight,
-    //         width: window.innerWidth
-    //       })
-
-    // React.useEffect(() => {
-    //         function handleResize() {
-    //           setDimensions({
-    //             height: window.innerHeight,
-    //             width: window.innerWidth
-    //           })}
-    //           window.addEventListener('resize', handleResize)       
-    //         })
 
   return (
     <div className='mainmain'>
@@ -262,6 +257,22 @@ function App() {
               icon= {errorMessage ? '-' : icon_.icon_}
               icon2= {errorMessage ? '-' : icon_.icon_2}
               icon3= {errorMessage ? '-' : icon_.icon_3}
+
+              hour1_2={ errorMessage ? '-' : nextHour2.nextHour}
+              hour2_2={ errorMessage ? '-' : nextHour2.nextHour2}
+              hour3_2={ errorMessage ? '-' : nextHour2.nextHour3}
+
+              minmax_2={ errorMessage ? '-' : minMax2.minMax}
+              minmax2_2={ errorMessage ? '-' : minMax2.minMax2}
+              minmax3_2={ errorMessage ? '-' : minMax2.minMax3}
+
+              humidity_2 ={errorMessage ? '-' : humidity2.humidity}
+              humidity2_2 ={errorMessage ? '-' : humidity2.humidity2}
+              humidity3_2 ={errorMessage ? '-' : humidity2.humidity3}
+
+              icon_2= {errorMessage ? '-' : icon2.icon_}
+              icon2_2= {errorMessage ? '-' : icon2.icon_2}
+              icon3_2= {errorMessage ? '-' : icon2.icon_3}
              />
           </section>
           <footer className='text-center' >
