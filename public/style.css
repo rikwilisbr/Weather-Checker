@@ -2,7 +2,6 @@
     overflow: hidden;
 }
 
-
 .section1 {
     overflow: hidden;
     background-color: black;
@@ -192,5 +191,91 @@ footer {
     background-color: #070707;
     color: white;
     padding-top: 1rem;
+}
+
+
+@media only screen and (max-width: 750px) {
+    .forecast {
+        border-right: solid 1px black;
+        margin-right: 10px;
+        height: 17rem;
+        width: 100% !important;
+        color: white;
+        
+    }
+
+    .forecast2 {
+        height: 16rem;
+        width: 100% !important;
+        color: white;
+        margin-top: 2rem !important;
+    }
+
+    .section2 {
+        height: 45rem;
+        width: 100%;
+        background-color: black;
+        padding: 2rem;
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        
+    }
+
+    .forecast-title {
+        margin-left: 0.5rem !important;
+        text-align: center;
+    }
+
+    .forecast-table{
+        margin-top: 1rem;
+        margin-left: 1rem;
+    }
+
+
+}
+
+@media only screen and (max-width: 650px){
+    .search {
+        display: flex;
+        justify-content: center;
+        margin-top: 6rem;
+    }
+    
+    .input {
+        background-color: transparent;
+        color: white;
+        border: 0;
+        outline: 0;
+        width: 10rem;
+        text-align: center;
+    }
+    
+    .input::placeholder {
+        color: white;
+        opacity: 0.8;
+
+    }
+        
+    .social-icon {
+        background: transparent;
+        color: white;
+        border: none;
+        margin-top: -150px !important;
+    }
+
+
+
+}
+
+@media only screen and (max-width: 450px) {
+
+    .footer-icon{
+        color: white;
+        margin: 5px;
+        visibility: visible
+    }
+
+
 }
 
