@@ -25,7 +25,7 @@ export default function Box(prop) {
 
     useEffect( () => {
    
-        if (now.getHours() >= 6 && now.getHours('19') <= 18  ) {
+        if (now.getHours() >= 6 && now.getHours() <= 18  ) {
             time.current = true
         } else {
             time.current = false
