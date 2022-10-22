@@ -7,7 +7,7 @@ function Forecast(prop) {
     const time = useRef(Boolean)
     useEffect( () => {
    
-        if (now.getHours() >= 6 && now.getHours() <= 18  ) {
+        if (now.getHours() >= 6 && now.getHours() <= 12  ) {
             time.current = true
         } else {
             time.current = false

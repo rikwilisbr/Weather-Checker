@@ -239,7 +239,7 @@ footer {
     .search {
         display: flex;
         justify-content: center;
-        margin-top: 6rem;
+        margin-top: 22rem;
     }
     
     .input {
@@ -261,20 +261,13 @@ footer {
         background: transparent;
         color: white;
         border: none;
-        margin-top: -150px !important;
+        margin-top: -410px !important;
     }
 
-
-
-}
-
-@media only screen and (max-width: 450px) {
-
-    .footer-icon{
-        color: white;
-        margin: 5px;
-        visibility: visible
+    .cityName {
+        padding-top: 1rem;
     }
+
 
 
 }
