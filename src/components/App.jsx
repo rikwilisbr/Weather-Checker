@@ -214,7 +214,7 @@ function App() {
   return (
     <div className='mainmain'>
         <header>
-          <Typography className='' style={{cursor: 'pointer'}} variant="h5" component="h2">Weather Checker</Typography>
+          <Typography className='header-title' style={{cursor: 'pointer'}} variant="h5" component="h2">Weather Checker</Typography>
             <div>
               <Search change={getCity} click={getData} value={city} />
             </div>
