@@ -177,8 +177,8 @@ function App() {
   }
 
       function getData(){
-        const url = 'https://api.openweathermap.org/data/2.5/weather?q='+city+'&appid='+ process.env.REACT_APP_KEY +'&units=metric&lang=pt_br'
-        const url2 = 'https://api.openweathermap.org/data/2.5/forecast?q='+city+'&appid='+ process.env.REACT_APP_KEY +'&units=metric&lang=pt_br'
+        const url = 'https://api.openweathermap.org/data/2.5/weather?q='+city+'&appid='+ process.env.REACT_APP_KEY +'&units=metric'
+        const url2 = 'https://api.openweathermap.org/data/2.5/forecast?q='+city+'&appid='+ process.env.REACT_APP_KEY +'&units=metric'
         getForecast(url, url2)
       }
 
@@ -186,8 +186,8 @@ function App() {
         const lat = String(pos.coords.latitude)
         const lon = String(pos.coords.longitude)
 
-        const url = 'https://api.openweathermap.org/data/2.5/weather?lat='+lat+'&lon='+lon+'&units=metric&lang=pt_br&appid='+process.env.REACT_APP_KEY
-        const url2 = 'https://api.openweathermap.org/data/2.5/forecast?lat='+lat+'&lon='+lon+'&units=metric&lang=pt_br&appid='+process.env.REACT_APP_KEY
+        const url = 'https://api.openweathermap.org/data/2.5/weather?lat='+lat+'&lon='+lon+'&units=metric&appid='+process.env.REACT_APP_KEY
+        const url2 = 'https://api.openweathermap.org/data/2.5/forecast?lat='+lat+'&lon='+lon+'&units=metric&appid='+process.env.REACT_APP_KEY
         getForecast(url, url2)
 
       }
