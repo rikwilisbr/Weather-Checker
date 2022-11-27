@@ -8,7 +8,7 @@ export default function Box(prop) {
 
     const now = new Date()
     const options = { weekday: 'long'};
-    const day = new Intl.DateTimeFormat('pt-BR', options).format(now)
+    const day = new Intl.DateTimeFormat('en-US', options).format(now)
     const dayUp = day.charAt(0).toUpperCase() + day.slice(1)
     var minutes = now.getMinutes()
     if( minutes < 10 ) {
