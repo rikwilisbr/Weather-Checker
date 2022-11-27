@@ -10,7 +10,7 @@
 
 
 
-![App Screenshot](https://imgur.com/jF0srMR)
+![App Screenshot](https://i.imgur.com/jF0srMR.png)
 
 You can access the app here: https://weathercheckersite.herokuapp.com/
 
