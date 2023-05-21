@@ -23,6 +23,7 @@ header {
     margin: auto;
     color: white;
     background-size: cover;
+    display: flex;
 }
 
 .search {
@@ -62,19 +63,23 @@ header {
     color: white;
     display: flex;
     justify-content: end;
-    margin-top: -30px;
-    margin-right: 20px;
+    margin-top: -1.8rem;
+    margin-right: 0.5rem;
     cursor: pointer;
 }
 
 .social-icon2 {
     text-decoration: none;
     color: white;
+    margin-top: -1.8em;
+    margin-right: 1.5rem;
+    cursor: pointer;
+}
+
+.socialIconsContainer{
     display: flex;
     justify-content: end;
-    margin-top: -23px;
-    margin-right: 60px;
-    cursor: pointer;
+    flex: 1;
 }
 
 .temp {
@@ -120,7 +125,8 @@ header {
 .hour {
     padding: 0.5rem;
     padding-top: 0.5;
-    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .hourText {
@@ -136,8 +142,8 @@ header {
     border: none;
     background-color: transparent;
     color: white;
-    width: 100% !important;
-    transition: color 250ms ease-out,
+    width: 4rem !important;
+    transition: color 250ms ease-out;
 }
 
 .reload:hover {
@@ -258,6 +264,13 @@ footer {
     }
         
     .social-icon {
+        background: transparent;
+        color: white;
+        border: none;
+        margin-top: -410px !important;
+    }
+
+    .social-icon2 {
         background: transparent;
         color: white;
         border: none;

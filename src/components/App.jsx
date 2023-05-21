@@ -8,168 +8,134 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 
 function App() {
-
-  const [city, setCity] = useState('')
-
-  const [temp, setTemp] = useState("")
-
-  const [desc, setDesc] = useState("")
-
-  const [icon, setIcon] = useState("")
-
-  const [cityName, setCityName] = useState("")
-
-  const [feelsLike, setFeelsLike] = useState("")
-
-
-
-  const [nextHour, setNextHour] = useState({
-    nextHour: '',
-    nextHour2: '',
-    nextHour3: '',
-  })
-
-  const [minMax, setMinMax] = useState({
-    minMax: '',
-    minMax2: '',
-    minMax3: '',
-  })
-
-  const [humidity, setHumidity] = useState({
-    humidity: '',
-    humidity2: '',
-    humidity3: '',
-  })
-
-  const [icon_, setIcon_] = useState({
-    icon_:'',
-    icon_2:'',
-    icon_3:''
-  })
-
-  //forecast2
   
-  const [nextHour2, setNextHour2] = useState({
-    nextHour: '',
-    nextHour2: '',
-    nextHour3: '',
-  })
+  const [weatherData, setWeatherData] = useState({
+    city: '',
+    temp: '',
+    desc: '',
+    icon: '',
+    feelsLike: ''
+  });
 
-  const [minMax2, setMinMax2] = useState({
-    minMax: '',
-    minMax2: '',
-    minMax3: '',
-  })
-
-  const [humidity2, setHumidity2] = useState({
-    humidity: '',
-    humidity2: '',
-    humidity3: '',
-  })
-
-  const [icon2, setIcon2] = useState({
-    icon_:'',
-    icon_2:'',
-    icon_3:''
-  })
+  const [forecast, setForecast] = useState({
+    nextHour: {
+      nextHour: '',
+      nextHour2: '',
+      nextHour3: '',
+    },
+    minMax: {
+      minMax: '',
+      minMax2: '',
+      minMax3: '',
+    },
+    humidity: {
+      humidity: '',
+      humidity2: '',
+      humidity3: '',
+    },
+    icon_: {
+      icon_: '',
+      icon_2: '',
+      icon_3: '',
+    },
+  });
+  
+  // forecast2
+  
+  const [forecast2, setForecast2] = useState({
+    nextHour: {
+      nextHour: '',
+      nextHour2: '',
+      nextHour3: '',
+    },
+    minMax: {
+      minMax: '',
+      minMax2: '',
+      minMax3: '',
+    },
+    humidity: {
+      humidity: '',
+      humidity2: '',
+      humidity3: '',
+    },
+    icon_: {
+      icon_: '',
+      icon_2: '',
+      icon_3: '',
+    },
+  });
 
   const [errorMessage, setErrorMessage] = useState(Boolean)
 
   function getCity(event) {
-      setCity(event.target.value)
+    setWeatherData({city: event.target.value });
   }
 
   async function getForecast(path, path2) {
-    await fetch(path).then( (response) => response.json()).then( (data) => {
-      if (data.cod === 200){
-        setTemp(Math.round(data.main.temp) + '°C')
-        setDesc(data.weather[0].description)
-        setIcon('http://openweathermap.org/img/wn/'+data.weather[0].icon+'@2x.png')
-        setCityName(data.name)
-        setFeelsLike('Feels Like ' + Math.round(data.main.feels_like)+'°C')
-
-        document.querySelector('.icon').classList.remove('visually-hidden')
-        setErrorMessage(false)
-      } else {
-        setErrorMessage(true)
-        document.querySelector('.icon').classList.add('visually-hidden')
-      }
-      
-
-      })
-
+        const response = await fetch(path);
+        const data = await response.json();
+        if (data.cod === 200) {
+          setWeatherData({
+            temp: Math.round(data.main.temp) + '°C',
+            desc: data.weather[0].description,
+            icon: 'http://openweathermap.org/img/wn/' + data.weather[0].icon + '@2x.png',
+            city: data.name,
+            feelsLike: 'Feels Like ' + Math.round(data.main.feels_like) + '°C'
+          });
+          document.querySelector('.icon').classList.remove('visually-hidden');
+          setErrorMessage(false);
+        } else {
+          setErrorMessage(true);
+          document.querySelector('.icon').classList.add('visually-hidden');
+        }
+  
       await fetch(path2).then((reponse)=> reponse.json()).then((data) => {
         if (data.cod === '200' ){
-
-          setNextHour(()=>{
-            return {
-              nextHour: data.list[0].dt_txt.slice(10).substring(0,6),
-              nextHour2: data.list[1].dt_txt.slice(10).substring(0,6),
-              nextHour3: data.list[2].dt_txt.slice(10).substring(0,6)
-            }
-          })
-
-          setMinMax(()=>{
-            return {
-              minMax: Math.round(data.list[0].main.temp_min) + '°C/' + Math.round(data.list[0].main.temp_max) + '°C',
-              minMax2: Math.round(data.list[1].main.temp_min) + '°C/' + Math.round(data.list[1].main.temp_max) + '°C',
-              minMax3:  Math.round(data.list[2].main.temp_min) + '°C/' + Math.round(data.list[2].main.temp_max) + '°C'
-            }
-          })
-
-          setHumidity(()=>{
-            return{
-              humidity:data.list[0].main.humidity + '%',
-              humidity2:data.list[1].main.humidity + '%',
-              humidity3:data.list[2].main.humidity + '%'
-
-            }
-          })
-
-          setIcon_(()=>{
-            return {
-              icon_:'http://openweathermap.org/img/wn/'+data.list[3].weather[0].icon+'@2x.png',
-              icon_2:'http://openweathermap.org/img/wn/'+data.list[4].weather[0].icon+'@2x.png',
-              icon_3:'http://openweathermap.org/img/wn/'+data.list[5].weather[0].icon+'@2x.png'
-            }
-          })
-
-          //forecast2
-
+            setForecast({
+              nextHour: {
+                nextHour: data.list[0].dt_txt.slice(10).substring(0, 6),
+                nextHour2: data.list[1].dt_txt.slice(10).substring(0, 6),
+                nextHour3: data.list[2].dt_txt.slice(10).substring(0, 6)
+              },
+              minMax: {
+                minMax: Math.round(data.list[0].main.temp_min) + '°C/' + Math.round(data.list[0].main.temp_max) + '°C',
+                minMax2: Math.round(data.list[1].main.temp_min) + '°C/' + Math.round(data.list[1].main.temp_max) + '°C',
+                minMax3: Math.round(data.list[2].main.temp_min) + '°C/' + Math.round(data.list[2].main.temp_max) + '°C'
+              },
+              humidity: {
+                humidity: data.list[0].main.humidity + '%',
+                humidity2: data.list[1].main.humidity + '%',
+                humidity3: data.list[2].main.humidity + '%'
+              },
+              icon_: {
+                icon_: 'http://openweathermap.org/img/wn/' + data.list[3].weather[0].icon + '@2x.png',
+                icon_2: 'http://openweathermap.org/img/wn/' + data.list[4].weather[0].icon + '@2x.png',
+                icon_3: 'http://openweathermap.org/img/wn/' + data.list[5].weather[0].icon + '@2x.png'
+              }
+            });
           
-          setNextHour2(()=>{
-            return {
-              nextHour: data.list[3].dt_txt.slice(10).substring(0,6),
-              nextHour2: data.list[4].dt_txt.slice(10).substring(0,6),
-              nextHour3: data.list[5].dt_txt.slice(10).substring(0,6)
-            }
-          })
-
-          setMinMax2(()=>{
-            return {
-              minMax: Math.round(data.list[0].main.temp_min) + '°C/' + Math.round(data.list[3].main.temp_max) + '°C',
-              minMax2: Math.round(data.list[1].main.temp_min) + '°C/' + Math.round(data.list[4].main.temp_max) + '°C',
-              minMax3:  Math.round(data.list[2].main.temp_min) + '°C/' + Math.round(data.list[5].main.temp_max) + '°C'
-            }
-          })
-
-          setHumidity2(()=>{
-            return{
-              humidity:data.list[3].main.humidity + '%',
-              humidity2:data.list[4].main.humidity + '%',
-              humidity3:data.list[5].main.humidity + '%'
-
-            }
-          })
-
-          setIcon2(()=>{
-            return {
-              icon_:'http://openweathermap.org/img/wn/'+data.list[3].weather[0].icon+'@2x.png',
-              icon_2:'http://openweathermap.org/img/wn/'+data.list[4].weather[0].icon+'@2x.png',
-              icon_3:'http://openweathermap.org/img/wn/'+data.list[5].weather[0].icon+'@2x.png'
-            }
-          })
-
+            setForecast2({
+              nextHour: {
+                nextHour: data.list[3].dt_txt.slice(10).substring(0, 6),
+                nextHour2: data.list[4].dt_txt.slice(10).substring(0, 6),
+                nextHour3: data.list[5].dt_txt.slice(10).substring(0, 6)
+              },
+              minMax: {
+                minMax: Math.round(data.list[0].main.temp_min) + '°C/' + Math.round(data.list[3].main.temp_max) + '°C',
+                minMax2: Math.round(data.list[1].main.temp_min) + '°C/' + Math.round(data.list[4].main.temp_max) + '°C',
+                minMax3: Math.round(data.list[2].main.temp_min) + '°C/' + Math.round(data.list[5].main.temp_max) + '°C'
+              },
+              humidity: {
+                humidity: data.list[3].main.humidity + '%',
+                humidity2: data.list[4].main.humidity + '%',
+                humidity3: data.list[5].main.humidity + '%'
+              },
+              icon_: {
+                icon_: 'http://openweathermap.org/img/wn/' + data.list[3].weather[0].icon + '@2x.png',
+                icon_2: 'http://openweathermap.org/img/wn/' + data.list[4].weather[0].icon + '@2x.png',
+                icon_3: 'http://openweathermap.org/img/wn/' + data.list[5].weather[0].icon + '@2x.png'
+              }
+            });
         } else {
           console.log('error')
         }
@@ -177,8 +143,8 @@ function App() {
   }
 
       function getData(){
-        const url = 'https://api.openweathermap.org/data/2.5/weather?q='+city+'&appid='+ process.env.REACT_APP_KEY +'&units=metric'
-        const url2 = 'https://api.openweathermap.org/data/2.5/forecast?q='+city+'&appid='+ process.env.REACT_APP_KEY +'&units=metric'
+        const url = 'https://api.openweathermap.org/data/2.5/weather?q='+weatherData.city+'&appid='+ process.env.REACT_APP_KEY +'&units=metric'
+        const url2 = 'https://api.openweathermap.org/data/2.5/forecast?q='+weatherData.city+'&appid='+ process.env.REACT_APP_KEY +'&units=metric'
         getForecast(url, url2)
       }
 
@@ -216,9 +182,9 @@ function App() {
         <header>
           <Typography className='header-title' style={{cursor: 'pointer'}} variant="h5" component="h2">Weather Checker</Typography>
             <div>
-              <Search change={getCity} click={getData} value={city} />
+              <Search change={getCity} click={getData} value={weatherData.city} />
             </div>
-            <div>
+            <div className='socialIconsContainer'>
               <a href='https://github.com/rikwilisbr/Weather-Checker' target='_blank' rel='noreferrer' className='social-icon'>
                 <GitHubIcon />
               </a>
@@ -230,50 +196,43 @@ function App() {
         <div>
         <section className='section1'>
           <div className='container-fluid p-0'>
-            <Box 
-              feelsLike={errorMessage? '' : feelsLike} 
-              cityName={errorMessage ? 'Not found :(' : cityName} 
-              icon={errorMessage ? '' : icon} 
-              temp={errorMessage ? '' : temp} 
-              desc={errorMessage ? '' : desc} 
-              refresh={() => document.location.reload()} 
-            />
+          <Box
+            feelsLike={errorMessage ? '' : weatherData.feelsLike}
+            cityName={errorMessage ? 'Not found :(' : weatherData.city}
+            icon={errorMessage ? '' : weatherData.icon}
+            temp={errorMessage ? '' : weatherData.temp}
+            desc={errorMessage ? '' : weatherData.desc}
+            refresh={() => document.location.reload()}
+          />
           </div> 
           </section>
           <section className='section2'>
-            <Forecast
-              hour1={ errorMessage ? '-' : nextHour.nextHour}
-              hour2={ errorMessage ? '-' : nextHour.nextHour2}
-              hour3={ errorMessage ? '-' : nextHour.nextHour3}
-
-              minmax={ errorMessage ? '-' : minMax.minMax}
-              minmax2={ errorMessage ? '-' : minMax.minMax2}
-              minmax3={ errorMessage ? '-' : minMax.minMax3}
-
-              humidity ={errorMessage ? '-' : humidity.humidity}
-              humidity2 ={errorMessage ? '-' : humidity.humidity2}
-              humidity3 ={errorMessage ? '-' : humidity.humidity3}
-
-              icon= {errorMessage ? '-' : icon_.icon_}
-              icon2= {errorMessage ? '-' : icon_.icon_2}
-              icon3= {errorMessage ? '-' : icon_.icon_3}
-
-              hour1_2={ errorMessage ? '-' : nextHour2.nextHour}
-              hour2_2={ errorMessage ? '-' : nextHour2.nextHour2}
-              hour3_2={ errorMessage ? '-' : nextHour2.nextHour3}
-
-              minmax_2={ errorMessage ? '-' : minMax2.minMax}
-              minmax2_2={ errorMessage ? '-' : minMax2.minMax2}
-              minmax3_2={ errorMessage ? '-' : minMax2.minMax3}
-
-              humidity_2 ={errorMessage ? '-' : humidity2.humidity}
-              humidity2_2 ={errorMessage ? '-' : humidity2.humidity2}
-              humidity3_2 ={errorMessage ? '-' : humidity2.humidity3}
-
-              icon_2= {errorMessage ? '-' : icon2.icon_}
-              icon2_2= {errorMessage ? '-' : icon2.icon_2}
-              icon3_2= {errorMessage ? '-' : icon2.icon_3}
-             />
+          <Forecast
+            hour1={errorMessage ? '-' : forecast.nextHour.nextHour}
+            hour2={errorMessage ? '-' : forecast.nextHour.nextHour2}
+            hour3={errorMessage ? '-' : forecast.nextHour.nextHour3}
+            minmax={errorMessage ? '-' : forecast.minMax.minMax}
+            minmax2={errorMessage ? '-' : forecast.minMax.minMax2}
+            minmax3={errorMessage ? '-' : forecast.minMax.minMax3}
+            humidity={errorMessage ? '-' : forecast.humidity.humidity}
+            humidity2={errorMessage ? '-' : forecast.humidity.humidity2}
+            humidity3={errorMessage ? '-' : forecast.humidity.humidity3}
+            icon={errorMessage ? '-' : forecast.icon_.icon_}
+            icon2={errorMessage ? '-' : forecast.icon_.icon_2}
+            icon3={errorMessage ? '-' : forecast.icon_.icon_3}
+            hour1_2={errorMessage ? '-' : forecast2.nextHour.nextHour}
+            hour2_2={errorMessage ? '-' : forecast2.nextHour.nextHour2}
+            hour3_2={errorMessage ? '-' : forecast2.nextHour.nextHour3}
+            minmax_2={errorMessage ? '-' : forecast2.minMax.minMax}
+            minmax2_2={errorMessage ? '-' : forecast2.minMax.minMax2}
+            minmax3_2={errorMessage ? '-' : forecast2.minMax.minMax3}
+            humidity_2={errorMessage ? '-' : forecast2.humidity.humidity}
+            humidity2_2={errorMessage ? '-' : forecast2.humidity.humidity2}
+            humidity3_2={errorMessage ? '-' : forecast2.humidity.humidity3}
+            icon_2={errorMessage ? '-' : forecast2.icon_.icon_}
+            icon2_2={errorMessage ? '-' : forecast2.icon_.icon_2}
+            icon3_2={errorMessage ? '-' : forecast2.icon_.icon_3}
+          />
           </section>
           <footer className='text-center' >
               <Typography variant='h7'>
