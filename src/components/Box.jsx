@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { Typography } from '@mui/material'
 import ReplayIcon from '@mui/icons-material/Replay';
+import SearchMobile from './SearchMobile'
 
 
 
@@ -60,6 +61,7 @@ export default function Box(prop) {
                     </div>
                 </div>
             </div>
+            <SearchMobile change={prop.searchChange} click={prop.searchClick} value={prop.searchValue} />
         </div>
             
             

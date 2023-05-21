@@ -9,6 +9,8 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 function App() {
   
+  const [inputValue, setInputValue] = useState('')
+
   const [weatherData, setWeatherData] = useState({
     city: '',
     temp: '',
@@ -68,7 +70,7 @@ function App() {
   const [errorMessage, setErrorMessage] = useState(Boolean)
 
   function getCity(event) {
-    setWeatherData({city: event.target.value });
+    setInputValue(event.target.value);
   }
 
   async function getForecast(path, path2) {
@@ -140,31 +142,37 @@ function App() {
           console.log('error')
         }
       })
-  }
+    }
 
       function getData(){
-        const url = 'https://api.openweathermap.org/data/2.5/weather?q='+weatherData.city+'&appid='+ process.env.REACT_APP_KEY +'&units=metric'
-        const url2 = 'https://api.openweathermap.org/data/2.5/forecast?q='+weatherData.city+'&appid='+ process.env.REACT_APP_KEY +'&units=metric'
+        const url = 'https://api.openweathermap.org/data/2.5/weather?q='+inputValue+'&appid='+ process.env.REACT_APP_KEY +'&units=metric'
+        const url2 = 'https://api.openweathermap.org/data/2.5/forecast?q='+inputValue+'&appid='+ process.env.REACT_APP_KEY +'&units=metric'
         getForecast(url, url2)
       }
 
       function getCurrentData(pos){
-        const lat = String(pos.coords.latitude)
-        const lon = String(pos.coords.longitude)
+          const lat = String(pos.coords.latitude)
+          const lon = String(pos.coords.longitude)
+          const url = 'https://api.openweathermap.org/data/2.5/weather?lat='+lat+'&lon='+lon+'&units=metric&appid='+process.env.REACT_APP_KEY
+          const url2 = 'https://api.openweathermap.org/data/2.5/forecast?lat='+lat+'&lon='+lon+'&units=metric&appid='+process.env.REACT_APP_KEY
+          getForecast(url, url2)        
+      }
 
-        const url = 'https://api.openweathermap.org/data/2.5/weather?lat='+lat+'&lon='+lon+'&units=metric&appid='+process.env.REACT_APP_KEY
-        const url2 = 'https://api.openweathermap.org/data/2.5/forecast?lat='+lat+'&lon='+lon+'&units=metric&appid='+process.env.REACT_APP_KEY
-        getForecast(url, url2)
-
+      function handleGeolocationError(error) {
+        console.error('Error getting geolocation:', error);
+        const url = 'https://api.openweathermap.org/data/2.5/weather?q='+'New York'+'&appid='+ process.env.REACT_APP_KEY +'&units=metric';
+        const url2 = 'https://api.openweathermap.org/data/2.5/forecast?q='+'New York'+'&appid='+ process.env.REACT_APP_KEY +'&units=metric';
+        getForecast(url, url2);
       }
 
       function initCoords() {
           if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(getCurrentData, console.log);
+            navigator.geolocation.getCurrentPosition(getCurrentData, handleGeolocationError());
           } else {
             alert("Your browser does not support Geolocation!");
           }
         }
+        
     
     const isFirsRender = useRef(true)
 
@@ -182,7 +190,7 @@ function App() {
         <header>
           <Typography className='header-title' style={{cursor: 'pointer'}} variant="h5" component="h2">Weather Checker</Typography>
             <div>
-              <Search change={getCity} click={getData} value={weatherData.city} />
+              <Search change={getCity} click={getData} value={inputValue} />
             </div>
             <div className='socialIconsContainer'>
               <a href='https://github.com/rikwilisbr/Weather-Checker' target='_blank' rel='noreferrer' className='social-icon'>
@@ -203,6 +211,9 @@ function App() {
             temp={errorMessage ? '' : weatherData.temp}
             desc={errorMessage ? '' : weatherData.desc}
             refresh={() => document.location.reload()}
+            searchChange={getCity}
+            searchClick={getData}
+            searchValue={inputValue}
           />
           </div> 
           </section>
