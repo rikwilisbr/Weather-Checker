@@ -123,9 +123,9 @@ function App() {
                 nextHour3: data.list[5].dt_txt.slice(10).substring(0, 6)
               },
               minMax: {
-                minMax: Math.round(data.list[0].main.temp_min) + '°C/' + Math.round(data.list[3].main.temp_max) + '°C',
-                minMax2: Math.round(data.list[1].main.temp_min) + '°C/' + Math.round(data.list[4].main.temp_max) + '°C',
-                minMax3: Math.round(data.list[2].main.temp_min) + '°C/' + Math.round(data.list[5].main.temp_max) + '°C'
+                minMax: Math.round(data.list[0].main.temp_min) + '°C/' + Math.round(data.list[0].main.temp_max) + '°C',
+                minMax2: Math.round(data.list[1].main.temp_min) + '°C/' + Math.round(data.list[1].main.temp_max) + '°C',
+                minMax3: Math.round(data.list[2].main.temp_min) + '°C/' + Math.round(data.list[2].main.temp_max) + '°C'
               },
               humidity: {
                 humidity: data.list[3].main.humidity + '%',
